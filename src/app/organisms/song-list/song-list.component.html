@@ -1,0 +1,27 @@
+<h1 *ngIf="isFavorite">Favoritos</h1>
+<h2 *ngIf="isLoading">Cargando...</h2>
+<h2 *ngIf="!isLoading && (playlistItems ? playlistItems.length === 0 : playlistItems === undefined)">No hay canciones</h2>
+<ol *ngIf="!isLoading">
+    <li *ngFor="let playlistItem of playlistItems; index as i">
+        <p>{{i+1}}</p>
+        <app-banner-song [bannerUrl]="playlistItem.track.album.images[0].url"></app-banner-song>
+        <article>
+            <section class="songInfo">
+                <app-song-title class="nameSong" [titleSong]="playlistItem.track.name"></app-song-title>
+                <app-song-title [titleSong]="playlistItem.track.artists[0].name"></app-song-title>
+            </section>
+            <section class="actions">
+                <button href="#" *ngIf="favorites === undefined || favorites[i] === false" class="favorite" (click)="addToFavorites(playlistItem.track.id, i)"><i class="far fa-heart"></i></button>
+                <button href="#" *ngIf="favorites === undefined || favorites[i] === true" class="favorite" (click)="removeFromFavorites(playlistItem.track.id, i)"><i class="fas fa-heart"></i></button>
+                <a target="_blank" href="{{playlistItem.track.external_urls.spotify}}"><i class="fas fa-play"></i></a>
+            </section>
+        </article>
+    </li>
+    <li class="buttonsPagination">
+        <button class="btnBack" *ngIf="isFavorite && page > 0" (click)="redirectTo('/favorite/'+(page-1))"><i class="fas fa-caret-left"></i> Atrás</button>
+        <button class="btnBack" *ngIf="!isFavorite && page > 0" (click)="redirectTo('/playlist/'+playlist_id+'/'+(page-1))" ><i class="fas fa-caret-left"></i> Atrás</button>
+        <p>{{page+1}}</p>
+        <button class="btnForward" *ngIf="isFavorite && page >= 0 && playlistItems.length > 0" (click)="redirectTo('/favorite/'+(page+1))">Siguiente <i class="fas fa-caret-right"></i></button>
+        <button class="btnForward" *ngIf="!isFavorite && page >= 0 && playlistItems.length > 0" (click)="redirectTo('/playlist/'+playlist_id+'/'+(page+1))">Siguiente <i class="fas fa-caret-right"></i></button>
+    </li>
+</ol>

@@ -1,0 +1,12 @@
+<h2>Playlists:</h2>
+<ul *ngIf="playlists!==null">
+    <li *ngFor="let playlist of playlists">
+        
+        <app-banner-figure [playlistTitle]="playlist.name" [bannerUrl]="playlist.id" [bannerImg]="playlist.images[0].url"></app-banner-figure>
+        
+        <p class="userOwner">{{playlist.owner.display_name}}</p>
+        <p *ngIf="playlist.description !== null">{{playlist.description}}</p>
+
+        <button>Explorar</button>
+    </li>
+</ul>
