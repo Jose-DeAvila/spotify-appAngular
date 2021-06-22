@@ -20,6 +20,10 @@ import { SongTitleComponent } from './atoms/song-title/song-title.component';
 import { PlaylistComponent } from './pages/playlist/playlist.component';
 import { SongListComponent } from './organisms/song-list/song-list.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
+import { SearchComponent } from './pages/search/search.component';
+import { InputComponent } from './atoms/input/input.component';
+import { SearchinputComponent } from './molecules/searchinput/searchinput.component';
+import { SearchResultComponent } from './organisms/search-result/search-result.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +44,10 @@ import { FavoritesComponent } from './pages/favorites/favorites.component';
     PlaylistComponent,
     SongListComponent,
     FavoritesComponent,
+    SearchComponent,
+    InputComponent,
+    SearchinputComponent,
+    SearchResultComponent,
   ],
   imports: [
     BrowserModule,

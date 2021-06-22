@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo') || '{"error":"User data is not provided"}');
     this.userInfo = this.userInfo.error ? undefined : this.userInfo;
     if(!this.userInfo || !localStorage.getItem('tokenInfo')){
-      // window.location.href = "/";
+      window.location.href = "/";
     }
   }
 

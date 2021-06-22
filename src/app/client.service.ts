@@ -115,7 +115,7 @@ export class ClientService {
   getPlaylistItems = async (accessToken:string, playlist_id:string, page:number) => {
   
     try{
-      const {refresh_token} = JSON.parse(localStorage.getItem('tokenInfo') || '{"error":"User data is not provided"}');
+      const {refresh_token} = JSON.parse(localStorage.getItem('tokenInfo') || '{"error":"Token info is not provided"}');
   
       const getPlaylistsURI:string = `https://api.spotify.com/v1/playlists/${playlist_id}/tracks?market=ES&limit=${limit}&offset=${limit * page}`;
   
@@ -264,6 +264,71 @@ export class ClientService {
     catch(error){
       console.log(error);
       return {}
+    }
+  }
+
+  removePlaylist = async (access_token:string, playlist_id:string): Promise<any> => {
+    try{
+      const URI = `https://api.spotify.com/v1/playlists/${playlist_id}/followers`;
+      const {refresh_token} = JSON.parse(localStorage.getItem('tokenInfo') || '{"error":"Token info is not provided"}');
+  
+      const response:any = await fetch(URI, {
+        method: 'DELETE',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${access_token}`
+        }
+      });
+  
+      if(response.error?.status === 401){
+        if(refresh_token){
+          this.getRefreshToken(refresh_token);
+        }
+        else{
+          this.signOutSession();
+        }
+      }
+  
+      console.log(response);
+      return response;
+    }
+    catch(error){
+      return error
+    }
+  }
+
+  searchKeyword = async (access_token:string, keyword:string, page:number) => {
+    try{
+      const {refresh_token} = JSON.parse(localStorage.getItem('tokenInfo') || '{"error":"Token info is not provided"}');
+      const URI:string = `https://api.spotify.com/v1/search?q=${keyword}&type=track&limit=${limit}&offset=${limit*page}`;
+  
+      const response:any = await fetch(URI, {
+        method: 'GET',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${access_token}`
+        }
+      });
+  
+      const SearchResult = await response.json();
+  
+      if(response.error?.status === 401){
+        if(refresh_token){
+          this.getRefreshToken(refresh_token);
+        }
+        else{
+          this.signOutSession();
+        }
+      }
+  
+      return SearchResult.tracks;
+    }
+    catch(error){
+      return {
+        "Error": error
+      }
     }
   }
 

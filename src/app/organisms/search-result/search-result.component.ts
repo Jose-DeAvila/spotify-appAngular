@@ -3,12 +3,11 @@ import { Router } from '@angular/router';
 import { ClientService } from 'src/app/client.service';
 
 @Component({
-  selector: 'app-song-list',
-  templateUrl: './song-list.component.html',
-  styleUrls: ['./song-list.component.sass']
+  selector: 'app-search-result',
+  templateUrl: './search-result.component.html',
+  styleUrls: ['./search-result.component.sass']
 })
-export class SongListComponent implements OnInit {
-
+export class SearchResultComponent implements OnInit {
   constructor(public clientService:ClientService, private router:Router) {
     this.favorites = [];
   }
@@ -44,14 +43,12 @@ export class SongListComponent implements OnInit {
   }
 
   @Input() playlistItems:any;
-  @Input() isFavorite:boolean = false;
   @Input() favorites:boolean[];
   @Input() page:number = 0;
-  @Input() playlist_id:string = '';
+  @Input() keyword:string = '';
   @Input() isLoading:boolean = true;
   @Input() error:string = '';
 
   ngOnInit(): void {
   }
-
 }

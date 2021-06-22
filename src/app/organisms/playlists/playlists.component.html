@@ -2,7 +2,7 @@
 <ul *ngIf="playlists!==null">
     <li *ngFor="let playlist of playlists">
         
-        <app-banner-figure [playlistTitle]="playlist.name" [bannerUrl]="playlist.id" [bannerImg]="playlist.images[0].url"></app-banner-figure>
+        <app-banner-figure [playlistTitle]="playlist.name" [bannerUrl]="playlist.id" [bannerImg]="playlist.images.length > 0 ? playlist.images[0].url : 'https://community.spotify.com/t5/image/serverpage/image-id/25294i2836BD1C1A31BDF2/image-size/original?v=mpbl-1&px=-1'"></app-banner-figure>
         
         <p class="userOwner">{{playlist.owner.display_name}}</p>
         <p *ngIf="playlist.description !== null">{{playlist.description}}</p>

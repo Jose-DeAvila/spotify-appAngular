@@ -23,8 +23,8 @@
                 </a>
 
             </app-navbar>
-            <img *ngIf="!userInfo" src="{{'https://media.istockphoto.com/illustrations/woman-with-short-hair-in-headphones-illustration-id465785399?k=6&m=465785399&s=612x612&w=0&h=R65nc5vFJLgClId1WJW8Ox6cwZbgcTjSZdbupH7LtUI='}}" alt="User Profile">
-            <img *ngIf="userInfo" src="{{userInfo.images[0].url}}" alt="User Profile">
+            <img *ngIf="!userInfo || userInfo.images.length === 0" src="https://media.istockphoto.com/illustrations/woman-with-short-hair-in-headphones-illustration-id465785399?k=6&m=465785399&s=612x612&w=0&h=R65nc5vFJLgClId1WJW8Ox6cwZbgcTjSZdbupH7LtUI=" alt="User Profile">
+            <img *ngIf="userInfo.images.length > 0" src="{{userInfo.images[0].url}}" alt="User Profile">
         </button>
     </nav>
 </header>
